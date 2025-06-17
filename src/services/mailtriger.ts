@@ -1,8 +1,7 @@
-
+import nodemailer from 'nodemailer'
 
 export const EmailTrigger=async()=>{
-    const pas='fenr zqzy xosp ehep'
-    const email='gowthamrwebnox@gmail.com '
+
     
     const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -13,9 +12,9 @@ export const EmailTrigger=async()=>{
   });
   const mailOptions = {
     from: 'your-email@gmail.com',
-    to: 'recipient@example.com',
-    subject: 'Hello from Nodemailer',
-    text: 'This is a test email sent using Nodemailer with TypeScript'
+    to: '',
+    subject: 'Kamathenu people Welcome you ',
+    text: 'Your OTP is'
   };
   const info = await transporter.sendMail(mailOptions);
 

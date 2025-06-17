@@ -12,9 +12,12 @@ export const emailVerification = (req: Request, res: Response) => {
     name: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
   });
+
+   const otp = Math.floor(100000 + Math.random() * 900000);
+   const 
   const {error,value}=optEmailAndUserValidataion.validate(clientData)
   if(value){
-   console.log(value)
+   
   }
   if(error){
    console.log(error)
