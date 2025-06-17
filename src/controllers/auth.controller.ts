@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Joi from "joi";
+import { EmailTrigger } from "../services/mailtriger";
 export const Registration = (req: Request, res: Response) => {
   console.log("created new registration");
   res.send("New User");
@@ -14,10 +15,10 @@ export const emailVerification = (req: Request, res: Response) => {
   });
 
    const otp = Math.floor(100000 + Math.random() * 900000);
-   const 
+   
   const {error,value}=optEmailAndUserValidataion.validate(clientData)
   if(value){
-   
+      EmailTrigger(clientData.name,clientData.email,otp)
   }
   if(error){
    console.log(error)

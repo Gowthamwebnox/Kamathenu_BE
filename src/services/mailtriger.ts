@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 
-export const EmailTrigger=async()=>{
+export const EmailTrigger=async(name:string,email:string,opt:number)=>{
 
     
     const transporter = nodemailer.createTransport({
