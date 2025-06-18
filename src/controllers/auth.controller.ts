@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Joi from "joi";
-import { EmailTrigger } from "../services/mailtriger";
+import { EmailTrigger } from "../services/sendEmail";
 export const Registration = (req: Request, res: Response) => {
   console.log("created new registration");
   res.send("New User");
@@ -18,8 +18,10 @@ export const emailVerification = (req: Request, res: Response) => {
    
   const {error,value}=optEmailAndUserValidataion.validate(clientData)
   if(value){
-      EmailTrigger(clientData.name,clientData.email,otp)
+    const dbResponse= EmailTrigger(clientData.name,clientData.email,otp)
+    
   }
+  return res.send(200)
   if(error){
    console.log(error)
   }
