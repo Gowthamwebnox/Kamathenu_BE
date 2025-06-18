@@ -8,7 +8,7 @@ export const EmailTrigger = async (name: string, email: string, otp: number) => 
       service: 'gmail',
       auth: {
         user: 'gowthamrwebnox@gmail.com',
-        pass: 'fenr zqzy xosp ehep'
+        pass: 'jrfc muqv ohgy ckrp'
       }
     });
 
@@ -16,12 +16,14 @@ export const EmailTrigger = async (name: string, email: string, otp: number) => 
       from: 'gowthamrwebnox@gmail.com',
       to: email,
       subject: 'Kamathenu Welcomes You!',
-      text: `Hi ${name},\n\nYour OTP is: ${otp}\n\nThanks,\nKamathenu Team`
+      text: `Hi ${name},Your OTP is: ${otp}`
     };
 
     const info = await transporter.sendMail(mailOptions);
-
-  } catch (err) {
+    console.log(info)
     
+  }
+   catch (err) {
+    console.log(err)
   }
 };
