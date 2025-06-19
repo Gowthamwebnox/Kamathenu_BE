@@ -139,7 +139,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\kamathenu\\kamathenu-website\\e-commerce_website\\Kamathenu-websit_BE\\Kamathenu_BE\\prisma\\src\\generated\\prisma",
+      "value": "D:\\Webnox Technology\\kamathenu_BE\\Kamathenu_BE\\prisma\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -153,7 +153,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\kamathenu\\kamathenu-website\\e-commerce_website\\Kamathenu-websit_BE\\Kamathenu_BE\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\Webnox Technology\\kamathenu_BE\\Kamathenu_BE\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -167,7 +167,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
