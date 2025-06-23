@@ -7,20 +7,21 @@ export const EmailTrigger = async (name: string, email: string, otp: number) => 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'gowthamrwebnox@gmail.com',
-        pass: 'jrfc muqv ohgy ckrp'
+        user: 'rgowthamraj5194@gmail.com',
+        pass: 'idgm fwau pjet acve'
       }
     });
 
     const mailOptions = {
-      from: 'gowthamrwebnox@gmail.com',
+      from: 'rgowthamraj5194@gmail.com',
       to: email,
       subject: 'Kamathenu Welcomes You!',
       text: `Hi ${name},Your OTP is: ${otp}`
     };
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log(info)
+    const info = await transporter.sendMail(mailOptions)
+    console.log(info.response.slice(0,3)+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    return "MailSendSuccessfully"
     
   }
    catch (err) {

@@ -1,7 +1,7 @@
 
 import { Request, Response } from "express";
 import Joi from "joi";
-import { PrismaClient } from "../../prisma/src/generated/prisma";
+import { PrismaClient } from "../generated/prisma/client";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 const crypto = require('crypto');

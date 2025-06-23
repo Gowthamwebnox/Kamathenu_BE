@@ -1,11 +1,16 @@
 import express from 'express';
-import { emailVerification, Registration } from '../controllers/auth.controller';
+import cors from 'cors'
+import { emailVerification} from '../controllers/auth.controller';
 import { Login, newUser } from '../controllers';
-const router = express.Router();
+import router from './auth';
+const middleware=express()
+middleware.use(cors())
 
-router.post('/verifyOTP' , emailVerification)
-router.post('/newuser', newUser)
-router.post('/login',Login)
+middleware.use('/auth' , router)
+// router.use('/auth', newUser)
+// router.use('/auth',Login)
+// router.use('/auth',router)
 
 
-export default router;
+export default middleware
+

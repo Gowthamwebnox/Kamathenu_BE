@@ -1,16 +1,27 @@
-import routers from "./routers";
+// server.ts
 
-const express=require('express')
-const cors=require('cors')
+import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
+import middleware from './routers';
 
 const app = express();
 
-// Enable CORS
-app.use(cors());
+// Express session
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
 
-app.use(express.json())
-app.use('/api',routers)
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
+// Use middleware (which connects all routes)
+app.use('/api',middleware);
+
+// Start the server
 app.listen(8000, () => {
-  console.log('Server is running on port 8000');
+    console.log('Server running on port 8000');
 });
