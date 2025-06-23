@@ -6,7 +6,7 @@ import passport from 'passport';
 import middleware from './routers';
 
 const app = express();
-
+app.use(express.json())
 // Express session
 app.use(session({
     secret: 'secret',

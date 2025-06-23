@@ -64,7 +64,31 @@ function UserData(userValue: {
   }
 }
 
-function LoginUserData(){
+function LoginUserData(userValue: { 
+  email: string;
+  password: string;
+  }){
+    try{
+        const loginSchema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(6).max(100).required(),
+          });
+          const { error, value } = loginSchema.validate(userValue);
+          if (error) {
+            return {
+              value: false,
+              err: error,
+            };
+          } else {
+            return {
+                value: true,
+                mes: value,
+              };
+          }
+    } 
+    catch(err){
+        console.log(err + " error in console");
+    }
 
 }
 

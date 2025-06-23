@@ -7,9 +7,6 @@ const middleware=express()
 middleware.use(cors())
 
 middleware.use('/auth' , router)
-// router.use('/auth', newUser)
-// router.use('/auth',Login)
-// router.use('/auth',router)
 
 
 export default middleware
