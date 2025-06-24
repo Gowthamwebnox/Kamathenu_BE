@@ -7,8 +7,8 @@ export const EmailTrigger = async (name: string, email: string, otp: number) => 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'rgowthamraj5194@gmail.com',
-        pass: 'idgm fwau pjet acve'
+        user: 'gowthamrwebnox@gmail.com',
+        pass: 'fbvb jeuq uhqb stzu'
       }
     });
 

@@ -12,10 +12,12 @@ const prisma = new PrismaClient();
 export const Login=async(req:Request,res:Response):Promise<any>=>{
     try{
         const clientData=req.body
+        console.log(clientData)
+        console.log(clientData+"????????????????CLIENT????????????????????????????")
     const loginUserData=LoginUserData(clientData)
     
     if(loginUserData.value){
-        const token=await signinUser(loginUserData.mes.email,loginUserData.mes.password)
+        const token=await signinUser(clientData.email,clientData.password)
         console.log(token+"token")
         return res.status(200).json(token)
     }

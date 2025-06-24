@@ -14,7 +14,7 @@ export const signinUserWithGoogle = async (email: string) => {
             return {isUser:false}
         }
         if(user){
-            const secretKey=process.env.HASH_SECRET_KEY || ''
+            const secretKey=process.env.TOKEN_SECRET_KEY || ''
             const token=jwt.sign(email,secretKey)
             return {user:user,token:token,isUser:true}
         }

@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Google OAuth
 googleSignin()
-console.log(googleSignin())
+
 // import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 
@@ -60,13 +60,13 @@ router.get('/google/callback',
     console.log(req.user)
     const userData:any = req.user
     if(!userData.isNewUser){
-        res.redirect(`http://localhost:3000/`);
+        res.redirect(`http://localhost:3000/?token=${userData.accessToken}`);
         
-        res.json({token:userData.accessToken})
+        // res.json({token:userData.accessToken})
     }
     if(userData.isNewUser){
-        // res.redirect('http://localhost:3000/auth/signup');
-        res.status(401)
+        res.redirect('http://localhost:3000/auth/signup');
+        // res.status(401)
     }
   }
 );

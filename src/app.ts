@@ -1,9 +1,11 @@
 // server.ts
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import middleware from './routers';
+import jwt from 'jsonwebtoken';
+import { TokenChecking } from './services/TokenChecking';
 
 const app = express();
 app.use(express.json())
@@ -20,6 +22,8 @@ app.use(passport.session());
 
 // Use middleware (which connects all routes)
 app.use('/api',middleware);
+app.post('/api/me', TokenChecking);
+  
 
 // Start the server
 app.listen(8000, () => {
