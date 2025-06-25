@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 export const newUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const clientData = req.body;
-    console.log(clientData);
+    console.log(clientData );
     const clientDatas = {
       name: clientData.signupDetails.name,
       email: clientData.signupDetails.email,
@@ -21,10 +21,11 @@ export const newUser = async (req: Request, res: Response): Promise<any> => {
       lastname: clientData.signupDetails.lastname,
       number: Number(clientData.signupDetails.number),
     };
-    console.log(clientDatas);
+    console.log(clientDatas +"🔥🔥🔥🔥🔥🔥");
     //user data validation
     const userDataValidation = await UserData(clientDatas);
     console.log(userDataValidation.value +"Validation");
+    return res.status(200).json(userDataValidation.value);
     //user data is true
     if (userDataValidation.value) {
       //otpchecking

@@ -6,21 +6,22 @@ import NewUserRegisterOTP from "../services/NewUserOTP";
 
 
 export const emailVerification = async (req: Request, res: Response): Promise<string | any> => {
+ 
   try {
     const clientData = req.body;
     const userEmail = {
       email: clientData.email
     }
-    console.log(clientData + "clientData");
+   
     // email validation
     const optEmailAndUserValidataion = await EmailValidation(clientData)
 
-    console.log(optEmailAndUserValidataion?.mes.email + ">>>>>>>>>>>>>>>>>>>>>>>>>Valiadation<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+   
 
     if (optEmailAndUserValidataion?.value) {
       //existing user or not
       const userAllReadyExist = await ExistUserOrNot(optEmailAndUserValidataion.mes.email)
-      console.log(userAllReadyExist)
+      
 
       //New user
       if (userAllReadyExist === null) {
@@ -28,7 +29,7 @@ export const emailVerification = async (req: Request, res: Response): Promise<st
         //Sending OTP 
         const seriveResponse = await EmailTrigger(clientData.name, clientData.email, otp)
         if (seriveResponse == 'MailSendSuccessfully') {
-          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>new<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,")
+          
           const otpRegisterValue: any = {
             email: clientData.email,
             otp: otp,
@@ -36,14 +37,13 @@ export const emailVerification = async (req: Request, res: Response): Promise<st
           }
           //storing new user OTP in OTPTable
           const serviceNewUserRegisterOTP = await NewUserRegisterOTP(otpRegisterValue)
-          console.log(serviceNewUserRegisterOTP)
+         
           return res.status(200).json(serviceNewUserRegisterOTP)
 
         }
       }
       //if already created
       if (userAllReadyExist !== null) {
-        console.log("used all ready created")
         res.status(400).json("User All Ready Created")
       }
     }
@@ -54,9 +54,7 @@ export const emailVerification = async (req: Request, res: Response): Promise<st
 
 
 
-  }
-
-  catch (err) {
+  } catch (err) {
     return res.send(400).json(err)
   }
 };

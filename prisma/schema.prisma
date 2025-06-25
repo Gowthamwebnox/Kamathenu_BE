@@ -29,6 +29,7 @@ model user {
   emailVerifiedAt DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  reviews         Review[]
 }
 
 model OTPTable {
@@ -37,4 +38,104 @@ model OTPTable {
   OTP Int
   ExpiredAt DateTime?
   isUsed Boolean @default(false)
+}
+
+model Category {
+  id               String     @id @default(uuid())
+  name             String
+  description      String?
+  parentCategoryId String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  imageUrl         String?
+  products         Product[]
+}
+
+model Product {
+  id           String            @id @default(uuid())
+  categoryId   String
+  name         String   
+  description  String?
+  isApproved   Boolean           @default(false)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  aboutProduct Json?
+  sellerId     String
+  category     Category          @relation(fields: [categoryId], references: [id])
+  // seller       SellerProfile     @relation(fields: [sellerId], references: [id])
+  discounts    ProductDiscount[]
+  images       ProductImage[]
+  variants     ProductVariant[]
+  reviews      Review[]
+
+  @@index([sellerId])
+  @@index([categoryId])
+}
+
+model ProductDiscount {
+  id            String       @id @default(uuid())
+  productId     String
+  discountType  DiscountType
+  discountValue Decimal
+  startDate     DateTime
+  endDate       DateTime
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  product       Product      @relation(fields: [productId], references: [id])
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  imageUrl  String
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model ProductVariant {
+  id                  String                @id @default(uuid())
+  productId           String
+  variantType         String
+  variantValue        String
+  additionalPrice     Decimal               @default(0)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  description         String?
+  price               Decimal
+  productVariantSKU   String                @unique
+  stockQuantity       Int
+  title               String
+  
+  product             Product               @relation(fields: [productId], references: [id], onDelete: Cascade)
+  ProductVariantImage ProductVariantImage[]
+  
+
+  @@index([productId])
+}
+
+model ProductVariantImage {
+  id               String         @id @default(uuid())
+  productVariantId String
+  imageUrl         String
+  isPrimary        Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  productId  String
+  userId     String
+  rating     Int
+  reviewText String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  product    Product  @relation(fields: [productId], references: [id])
+  user       user     @relation(fields: [userId], references: [id])
+}
+
+enum DiscountType {
+  percentage
+  amount
 }

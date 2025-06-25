@@ -56,7 +56,7 @@ async function NewUser(userData: UserData) {
         number: userData.number,
       },
     });
-    console.log(dbResponseNewUser);
+    console.log(dbResponseNewUser +">>>>>>>>>>>>>>>>>>> 🔥USER CREATED🔥 <<<<<<<<<<<<<<<<<<<<<<<<");
     return dbResponseNewUser;
   } catch (error) {
     console.error("Prisma error: ", error);
