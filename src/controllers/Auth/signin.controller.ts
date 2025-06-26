@@ -1,12 +1,12 @@
 
 import { Request, Response } from "express";
 import Joi from "joi";
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "../../generated/prisma/client";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { signinUser } from "../services/signinUser";
+import { signinUser } from "../../services/signinUser";
 const crypto = require('crypto');
-const { LoginUserData } = require('../validation/Validations');
+const { LoginUserData } = require('../../validation/Validations');
 const prisma = new PrismaClient();
 
 export const Login=async(req:Request,res:Response):Promise<any>=>{
@@ -16,10 +16,10 @@ export const Login=async(req:Request,res:Response):Promise<any>=>{
         console.log(clientData+"????????????????CLIENT????????????????????????????")
     const loginUserData=LoginUserData(clientData)
     
-    if(loginUserData.value){
-        const token=await signinUser(clientData.email,clientData.password)
-        console.log(token+"token")
-        return res.status(200).json(token)
+    if(loginUserData.value){    
+        const tokenAndUserData=await signinUser(clientData.email,clientData.password)
+        console.log(tokenAndUserData+"tokenAndUserData")
+        return res.status(200).json(tokenAndUserData)
     }
     if(!loginUserData.value){
         return res.status(400).json(loginUserData.err)

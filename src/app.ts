@@ -22,7 +22,7 @@ app.use(passport.session());
 
 // Use middleware (which connects all routes)
 app.use('/api',middleware);
-// app.post('/api/me', TokenChecking);
+app.post('/api/me', TokenChecking);
   
 
 // Start the server

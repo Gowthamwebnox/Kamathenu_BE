@@ -1,9 +1,10 @@
 import express from 'express';
 import passport from 'passport';
-import { emailVerification } from '../../controllers/auth.controller';
-import { Login, newUser } from '../../controllers';
-import { googleSignin } from '../../controllers/googlesignin.controller';
+import { emailVerification } from '../../controllers/Auth/auth.controller';
 import { any } from 'joi';
+import { googleSignin } from '../../controllers/Auth/googlesignin.controller';
+import { newUser } from '../../controllers/Auth/signup.controller';
+import { Login } from '../../controllers/Auth/signin.controller';
 
 const router = express.Router();
 

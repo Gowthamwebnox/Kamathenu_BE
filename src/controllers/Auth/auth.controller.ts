@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { EmailTrigger } from "../services/sendEmail";
-const { EmailValidation } = require('../validation/Validations');
-import ExistUserOrNot from "../services/userExists";
-import NewUserRegisterOTP from "../services/NewUserOTP";
+import { EmailTrigger } from "../../services/sendEmail";
+const { EmailValidation } = require('../../validation/Validations');
+import ExistUserOrNot from "../../services/userExists";
+import NewUserRegisterOTP from "../../services/NewUserOTP";
 
 
 export const emailVerification = async (req: Request, res: Response): Promise<string | any> => {

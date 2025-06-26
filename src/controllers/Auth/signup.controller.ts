@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import Joi from "joi";
 import { log } from "console";
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "../../generated/prisma/client";
 
-const { UserData } = require("../validation/Validations");
-const { OTPCheck, NewUser } = require("../services/signUp");
+const { UserData } = require("../../validation/Validations");
+const { OTPCheck, NewUser } = require("../../services/signUp");
 const prisma = new PrismaClient();
 
 export const newUser = async (req: Request, res: Response): Promise<any> => {
