@@ -1,10 +1,10 @@
 import { Router } from "express";
-import getCategory from "../../controllers/Category/getCategory.controller";
 import { getDesignAndFeature } from "../../controllers/Category/getDesignAndFeature.controller";
+import getCategoryController from "../../controllers/Category/getCategory.controller";
 
 const categoryRouter = Router();
 
-categoryRouter.get("/getcategory", getCategory);
+categoryRouter.post("/getAllCategory", getCategoryController);
 categoryRouter.post("/getDesignAndFeature", getDesignAndFeature);
 
 export default categoryRouter;

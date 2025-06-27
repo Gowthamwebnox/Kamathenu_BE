@@ -90,7 +90,7 @@ model ProductDiscount {
 model ProductImage {
   id        String   @id @default(uuid())
   productId String
-  imageUrl  String
+  imageUrl  String[]
   isPrimary Boolean  @default(false)
   createdAt DateTime @default(now())
   product   Product  @relation(fields: [productId], references: [id])
@@ -157,6 +157,7 @@ model AddCart{
   updatedAt DateTime @updatedAt
   user user @relation(fields: [userId], references: [id])
 }
+
 
 enum DiscountType {
   percentage
