@@ -5,6 +5,7 @@ const prisma = new PrismaClient
 
 export const getDesignAndFeatureService = async (clientData: any): Promise<any> => {
     const { categoryName, limit } = clientData
+    console.log("categoryName👍👍👍👍👍👍👍👍",categoryName)
     const designData = await prisma.product.findMany({
         where: {
             category: {
@@ -16,7 +17,11 @@ export const getDesignAndFeatureService = async (clientData: any): Promise<any> 
             category: true,
             images: true,
             discounts: true,
+            variants: true,
+            reviews: true,
+            seller: true,
         },
     })
+    
     return designData
 }

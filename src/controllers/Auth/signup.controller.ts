@@ -25,7 +25,7 @@ export const newUser = async (req: Request, res: Response): Promise<any> => {
     //user data validation
     const userDataValidation = await UserData(clientDatas);
     console.log(userDataValidation.value +"Validation");
-    return res.status(200).json(userDataValidation.value);
+   
     //user data is true
     if (userDataValidation.value) {
       //otpchecking
@@ -53,6 +53,7 @@ export const newUser = async (req: Request, res: Response): Promise<any> => {
           emailVerified:otpChecking
         };
         const createUser = await NewUser(newUserData);
+        return res.status(200).json("user created successfully");
       }
       if (!otpChecking) {
         return res.status(400).json("invalid OTP");
