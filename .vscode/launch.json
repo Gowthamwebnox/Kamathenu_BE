@@ -1,0 +1,96 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug TypeScript (ts-node)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/app.ts",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "Debug with Nodemon",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/app.ts",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "name": "Debug with Auto-Restart",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/app.ts",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "restart": true,
+      "protocol": "inspector"
+    },
+    {
+      "name": "Debug Compiled JavaScript",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/dist/app.js",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "Attach to Process",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    }
+  ]
+} 

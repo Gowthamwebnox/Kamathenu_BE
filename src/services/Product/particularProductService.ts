@@ -5,23 +5,28 @@ const prisma = new PrismaClient();
 
 
 export const particularProductService = async (clientData:any):Promise<any>=>{
-    const {productId}=clientData
+    const {id,name,limit}=clientData
     const product:{particularProduct:any,similerProduct:any}={
       particularProduct:'',
       similerProduct:[],
     }
-    console.log(productId)
+    console.log(id)
     const fetchProduct = await prisma.product.findUnique({
         where: {
-          id: productId,
+          id: id,
         },
         include: {
           reviews: {
             include: {
-              user: true, // optional: include user info for each review
+              user: true, 
             },
           },
           productDetails: true, // includes the ProductDetails records
+          images:true,
+          variants:true,
+          category:true,
+          discounts:true,
+          seller:true,
         },
       });
       product.particularProduct=fetchProduct

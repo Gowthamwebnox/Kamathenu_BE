@@ -3,6 +3,8 @@ import { particularProductService } from "../../services/Product/particularProdu
 
 const particularProduct = async (req:Request,res:Response):Promise<any>=>{
     const clientData=req.body
+    debugger
+    console.log("clientData🎊🎊🎊🎊🎊🎊🎊😊😊😊😊😊😊😊😊😊😊",clientData)
     console.log(clientData)
     const productData=await particularProductService(clientData)
     return res.status(200).json({productData})
