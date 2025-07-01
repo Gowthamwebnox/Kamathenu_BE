@@ -71,6 +71,7 @@ model Product {
   variants       ProductVariant[]
   reviews        Review[]
   productDetails ProductDetails[]
+  addCart        AddCart[]
 
   @@index([sellerId])
   @@index([categoryId])
@@ -158,6 +159,7 @@ model AddCart{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user user @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId],references: [id])
 }
 
 model SellerProfile {

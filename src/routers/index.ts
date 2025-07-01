@@ -5,12 +5,16 @@ import { Login, newUser } from '../controllers/Auth';
 import router from './auth';
 import categoryRouter from './catgegory';
 import productRouter from './Product';
+import contactRouter from './contact';
+import cartRouter from './cart';
 const middleware=express()
 middleware.use(cors())
 
 middleware.use('/auth' , router)
 middleware.use('/category' , categoryRouter)
 middleware.use('/product' , productRouter)
+middleware.use('/contact' , contactRouter)
+middleware.use('/cart' , cartRouter)
 
 
 

@@ -91,5 +91,28 @@ function LoginUserData(userValue: {
     }
 
 }
-
-module.exports = { EmailValidation, UserData, LoginUserData };
+export const adminContactValidation = (userValue: { name: string; email: string; message: string; subject: string }) => {
+  try {
+    const adminContactSchema = Joi.object({
+      name: Joi.string().min(3).max(30).required(),
+      email: Joi.string().email().required(),
+      message: Joi.string().required(),
+      subject: Joi.string().required(), 
+    });
+    const { error, value } = adminContactSchema.validate(userValue);
+    if (error) {
+      return {
+        value: false,
+        err: error,
+      };
+    } else {
+      return {
+        value: true,
+        mes: value,
+      };
+    }
+  } catch (err) {
+    console.log(err + " error in console");
+  }
+}
+module.exports = { EmailValidation, UserData, LoginUserData,adminContactValidation };

@@ -27,7 +27,12 @@ export const emailVerification = async (req: Request, res: Response): Promise<st
       if (userAllReadyExist === null) {
         const otp = Math.floor(100000 + Math.random() * 900000);
         //Sending OTP 
-        const seriveResponse = await EmailTrigger(clientData.name, clientData.email, otp)
+        const emailTriggerData={
+          name: clientData.name,
+          email: clientData.email,
+          otp: otp
+        }
+        const seriveResponse = await EmailTrigger(emailTriggerData)
         if (seriveResponse == 'MailSendSuccessfully') {
           
           const otpRegisterValue: any = {
