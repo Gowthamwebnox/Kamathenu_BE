@@ -24,6 +24,7 @@ export const googleSignin = async() => {
       async(accessToken: any, refreshToken: any, profile: any, done: (arg0: null, arg1: any) => any) => {
         console.log(profile.emails[0].value+"email" )
         const userData:any = await signinUserWithGoogle(profile.emails[0].value)
+        
         const token=userData.token
         console.log(token + "token")
         console.log( ">>>>>>>>>>>>>>>>>>>>>>>profile<<<<<<<<<<<<<<<<<<<<<<<<<<")
