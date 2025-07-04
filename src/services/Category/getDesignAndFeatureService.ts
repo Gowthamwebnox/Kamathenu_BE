@@ -20,6 +20,7 @@ export const getDesignAndFeatureService = async (clientData: any): Promise<any> 
             variants: true,
             reviews: true,
             seller: true,
+            wishlist: true,
         },
     })
     
