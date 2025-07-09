@@ -18,7 +18,6 @@ export const signinUserWithGoogle = async (email: string) => {
             const token=jwt.sign(email,secretKey)
             return {user:user,token:token,isUser:true}
         }
-        
     }
     catch(err){
         console.log(err)

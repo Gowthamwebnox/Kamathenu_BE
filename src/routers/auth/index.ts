@@ -5,6 +5,8 @@ import { any } from 'joi';
 import { googleSignin } from '../../controllers/Auth/googlesignin.controller';
 import { newUser } from '../../controllers/Auth/signup.controller';
 import { Login } from '../../controllers/Auth/signin.controller';
+import { fetchUser } from '../../controllers/User/fetchUser.controller';
+import { updateUser } from '../../controllers/User/updateUser.controller';
 
 const router = express.Router();
 
@@ -49,6 +51,8 @@ router.post('/verifyOTP', emailVerification);
 router.post('/newuser', newUser);
 router.post('/login', Login);
 
+router.get('/fetchUser/:id', fetchUser);
+router.put('/updateUser/:id', updateUser);
 
 
 // Google OAuth route
@@ -60,8 +64,16 @@ router.get('/google/callback',
     debugger
     console.log(req.user)
     const userData:any = req.user
+    console.log("😎😎😎🔥🔥🔥😎😎😎")
+    const userId=userData?.userData?.user?.id
+    console.log(userId)
+    
+    const token=userData.accessToken
+    const user=userData.user
+    console.log(userId,token,user)
     if(!userData.isNewUser){
-        res.redirect(`http://localhost:3000/?token=${userData.accessToken}`);
+
+        res.redirect(`http://localhost:3000/?token=${userData.accessToken}&userId=${userId}}`);
         
         // res.json({token:userData.accessToken})
     }
