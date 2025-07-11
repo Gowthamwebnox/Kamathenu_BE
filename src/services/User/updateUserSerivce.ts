@@ -9,7 +9,6 @@ export const updateUserService = async (userId:string,updateData:any):Promise<an
         data:{
             firstName:updateData.firstName,
             lastName:updateData.lastName,
-            email:updateData.email,
             number:updateData.phone,
         }
     })

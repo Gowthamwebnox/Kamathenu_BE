@@ -15,8 +15,8 @@ datasource db {
 }
 
 model user {
-  id              String    @id @default(uuid())
-  email           String    @unique
+  id              String         @id @default(uuid())
+  email           String         @unique
   password        String
   hasedPassword   String
   profile         String?
@@ -26,14 +26,15 @@ model user {
   name            String
   roleId          String
   image           String?
-  isEmailVerified Boolean   @default(false)
+  isEmailVerified Boolean        @default(false)
   emailVerifiedAt DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   reviews         Review[]
   addCart         AddCart[]
   wishlist        Wishlist[]
   sellerProfile   SellerProfile?
+  ShoppingCart    ShoppingCart[]
 }
 
 model OTPTable {
@@ -66,7 +67,7 @@ model Product {
   aboutProduct   Json?
   sellerId       String
   category       Category          @relation(fields: [categoryId], references: [id])
-  seller       SellerProfile     @relation(fields: [sellerId], references: [id])
+  seller         SellerProfile     @relation(fields: [sellerId], references: [id])
   discounts      ProductDiscount[]
   images         ProductImage[]
   variants       ProductVariant[]
@@ -74,6 +75,8 @@ model Product {
   productDetails ProductDetails[]
   addCart        AddCart[]
   wishlist       Wishlist[]
+  CartItem       CartItem[]
+
   @@index([sellerId])
   @@index([categoryId])
 }
@@ -91,13 +94,13 @@ model ProductDiscount {
 }
 
 model ProductImage {
-  id        String   @id @default(uuid())
-  productId String
-  imageUrl  String[]
+  id            String   @id @default(uuid())
+  productId     String
+  imageUrl      String[]
   imageLayerout String[]
-  isPrimary Boolean  @default(false)
-  createdAt DateTime @default(now())
-  product   Product  @relation(fields: [productId], references: [id])
+  isPrimary     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  product       Product  @relation(fields: [productId], references: [id])
 }
 
 model ProductVariant {
@@ -105,7 +108,7 @@ model ProductVariant {
   productId         String
   variantType       String
   variantValue      String
-  discountPrice   Decimal  @default(0)
+  discountPrice     Decimal  @default(0)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   description       String?
@@ -153,54 +156,75 @@ model ProductDetails {
   product           Product  @relation(fields: [productId], references: [id])
 }
 
-model AddCart{
-  id String @id @default(uuid())
-  userId String
+model AddCart {
+  id        String   @id @default(uuid())
+  userId    String
   productId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user user @relation(fields: [userId], references: [id])
-  product Product @relation(fields: [productId],references: [id])
+  user      user     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 }
 
 model SellerProfile {
-  id               String                    @id @default(uuid())
-  userId           String                    @unique
+  id               String    @id @default(uuid())
+  userId           String    @unique
   profileImage     String?
   sellerName       String?
   storeName        String
   storeDescription String?
-  bankAccountId    String?                   @unique
+  bankAccountId    String?   @unique
   upiId            String?
-  createdAt        DateTime                  @default(now())
-  updatedAt        DateTime                  @updatedAt
-  address          String?                   @db.VarChar
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  address          String?   @db.VarChar
   // location         Unsupported("geography")?
   documents        String[]
-  gstn             String?                   @unique
+  gstn             String?   @unique
   pincode          String?
   // status           SellerStatus              @default(ON_HOLD)
   // bankAccount      BankAccountDetails?
   // OrderItem        OrderItem[]
   products         Product[]
-  user             user                      @relation(fields: [userId], references: [id])
+  user             user      @relation(fields: [userId], references: [id])
 
   // @@index([location], map: "sellerprofile_location_gix", type: Gist)
 }
 
-model Wishlist{
-  id String @id @default(uuid())
-  userId String
+model Wishlist {
+  id        String   @id @default(uuid())
+  userId    String
   productId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user user @relation(fields: [userId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
+  user      user     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model ShoppingCart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+  user      user       @relation(fields: [userId], references: [id])
+}
+
+model CartItem {
+  id        String       @id @default(uuid())
+  cartId    String
+  productId String
+  quantity  Int
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  cart      ShoppingCart @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product      @relation(fields: [productId], references: [id])
+
+  @@index([cartId])
+  @@index([productId])
 }
 
 enum DiscountType {
-  percentage  
+  percentage
   amount
 }
-
-
