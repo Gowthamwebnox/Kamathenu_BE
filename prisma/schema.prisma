@@ -15,26 +15,28 @@ datasource db {
 }
 
 model user {
-  id              String         @id @default(uuid())
-  email           String         @unique
-  password        String
-  hasedPassword   String
-  profile         String?
-  firstName       String?
-  lastName        String?
-  number          String?
-  name            String
-  roleId          String
-  image           String?
-  isEmailVerified Boolean        @default(false)
-  emailVerifiedAt DateTime?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  reviews         Review[]
-  addCart         AddCart[]
-  wishlist        Wishlist[]
-  sellerProfile   SellerProfile?
-  ShoppingCart    ShoppingCart[]
+  id                     String                   @id @default(uuid())
+  email                  String                   @unique
+  password               String
+  hasedPassword          String
+  profile                String?
+  firstName              String?
+  lastName               String?
+  number                 String?
+  name                   String
+  roleId                 String
+  image                  String?
+  isEmailVerified        Boolean                  @default(false)
+  emailVerifiedAt        DateTime?
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  reviews                Review[]
+  addCart                AddCart[]
+  wishlist               Wishlist[]
+  sellerProfile          SellerProfile?
+  Order                  Order[]
+  OrderItem              OrderItem[]
+  UserProductDescription UserProductDescription[]
 }
 
 model OTPTable {
@@ -57,28 +59,40 @@ model Category {
 }
 
 model Product {
-  id             String            @id @default(uuid())
-  categoryId     String
-  name           String
-  description    String?
-  isApproved     Boolean           @default(false)
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  aboutProduct   Json?
-  sellerId       String
-  category       Category          @relation(fields: [categoryId], references: [id])
-  seller         SellerProfile     @relation(fields: [sellerId], references: [id])
-  discounts      ProductDiscount[]
-  images         ProductImage[]
-  variants       ProductVariant[]
-  reviews        Review[]
-  productDetails ProductDetails[]
-  addCart        AddCart[]
-  wishlist       Wishlist[]
-  CartItem       CartItem[]
+  id                     String                   @id @default(uuid())
+  categoryId             String
+  name                   String
+  description            String?
+  isApproved             Boolean                  @default(false)
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  aboutProduct           Json?
+  sellerId               String
+  category               Category                 @relation(fields: [categoryId], references: [id])
+  seller                 SellerProfile            @relation(fields: [sellerId], references: [id])
+  discounts              ProductDiscount[]
+  images                 ProductImage[]
+  variants               ProductVariant[]
+  reviews                Review[]
+  productDetails         ProductDetails[]
+  addCart                AddCart[]
+  wishlist               Wishlist[]
+  OrderItem              OrderItem[]
+  UserProductDescription UserProductDescription[]
 
   @@index([sellerId])
   @@index([categoryId])
+}
+
+model UserProductDescription {
+  id          String   @id @default(uuid())
+  userId      String
+  productId   String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  product     Product  @relation(fields: [productId], references: [id])
+  user        user     @relation(fields: [userId], references: [id])
 }
 
 model ProductDiscount {
@@ -167,27 +181,27 @@ model AddCart {
 }
 
 model SellerProfile {
-  id               String    @id @default(uuid())
-  userId           String    @unique
+  id               String      @id @default(uuid())
+  userId           String      @unique
   profileImage     String?
   sellerName       String?
   storeName        String
   storeDescription String?
-  bankAccountId    String?   @unique
+  bankAccountId    String?     @unique
   upiId            String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  address          String?   @db.VarChar
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  address          String?     @db.VarChar
   // location         Unsupported("geography")?
   documents        String[]
-  gstn             String?   @unique
+  gstn             String?     @unique
   pincode          String?
   // status           SellerStatus              @default(ON_HOLD)
   // bankAccount      BankAccountDetails?
   // OrderItem        OrderItem[]
   products         Product[]
-  user             user      @relation(fields: [userId], references: [id])
-
+  user             user        @relation(fields: [userId], references: [id])
+  OrderItem        OrderItem[]
   // @@index([location], map: "sellerprofile_location_gix", type: Gist)
 }
 
@@ -201,27 +215,82 @@ model Wishlist {
   product   Product  @relation(fields: [productId], references: [id])
 }
 
-model ShoppingCart {
-  id        String     @id @default(uuid())
-  userId    String     @unique
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  items     CartItem[]
-  user      user       @relation(fields: [userId], references: [id])
+model Order {
+  id            String        @id @default(uuid())
+  userId        String
+  totalAmount   Decimal
+  orderStatus   OrderStatus   @default(pending)
+  paymentRefId  String?
+  paymentStatus PaymentStatus @default(pending)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  user          user          @relation(fields: [userId], references: [id])
+  items         OrderItem[]
+  payments      Payment[]
 }
 
-model CartItem {
-  id        String       @id @default(uuid())
-  cartId    String
-  productId String
-  quantity  Int
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-  cart      ShoppingCart @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  product   Product      @relation(fields: [productId], references: [id])
+model OrderItem {
+  id              String          @id @default(uuid())
+  orderId         String
+  productId       String
+  sellerId        String
+  priceAtPurchase Decimal
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  userId          String?
+  status          OrderItemStatus @default(pending)
+  order           Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product         Product         @relation(fields: [productId], references: [id])
+  seller          SellerProfile   @relation(fields: [sellerId], references: [id])
+  User            user?           @relation(fields: [userId], references: [id])
 
-  @@index([cartId])
+  @@index([orderId])
   @@index([productId])
+  @@index([sellerId])
+  @@index([userId])
+}
+
+model Payment {
+  id                    String               @id @default(uuid())
+  orderId               String
+  paymentGateway        String
+  paymentStatus         PaymentGatewayStatus
+  paymentGatewayOrderId String?
+  transactionId         String?
+  amount                Decimal
+  paymentDate           DateTime?
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  order                 Order                @relation(fields: [orderId], references: [id])
+}
+
+enum PaymentGatewayStatus {
+  pending
+  completed
+  failed
+  authorized
+  refunded
+}
+
+enum OrderStatus {
+  pending
+  approved
+  rejected
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  refunded
+  authorized
+  failed
+}
+
+enum OrderItemStatus {
+  pending
+  shipped
+  delivered
+  cancelled
 }
 
 enum DiscountType {

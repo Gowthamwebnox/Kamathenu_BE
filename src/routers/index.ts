@@ -7,6 +7,7 @@ import categoryRouter from './catgegory';
 import productRouter from './Product';
 import contactRouter from './contact';
 import cartRouter from './cart';
+import orderRouter from './Order';
 const middleware=express()
 middleware.use(cors())
 
@@ -15,6 +16,7 @@ middleware.use('/category' , categoryRouter)
 middleware.use('/product' , productRouter)
 middleware.use('/contact' , contactRouter)
 middleware.use('/cart' , cartRouter)
+middleware.use('/order' , orderRouter)
 
 
 
