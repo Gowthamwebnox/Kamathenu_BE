@@ -88,7 +88,7 @@ model UserProductDescription {
   id          String   @id @default(uuid())
   userId      String
   productId   String
-  description String
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   product     Product  @relation(fields: [productId], references: [id])
