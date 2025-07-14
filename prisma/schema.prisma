@@ -93,6 +93,7 @@ model UserProductDescription {
   updatedAt   DateTime @updatedAt
   product     Product  @relation(fields: [productId], references: [id])
   user        user     @relation(fields: [userId], references: [id])
+
 }
 
 model ProductDiscount {
@@ -243,6 +244,7 @@ model OrderItem {
   product         Product         @relation(fields: [productId], references: [id])
   seller          SellerProfile   @relation(fields: [sellerId], references: [id])
   User            user?           @relation(fields: [userId], references: [id])
+  
 
   @@index([orderId])
   @@index([productId])

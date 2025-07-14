@@ -6,7 +6,6 @@ export const orderProducts = async (req: Request, res: Response): Promise<any> =
     const userDetails=req.body 
     // console.log(userId,productId,amount,sellerId)
     console.log(userDetails)
-    console.log("🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶")
     await orderUserProduct(userDetails)
        res.status(200).json({ message: "Order created successfully" })
 }
