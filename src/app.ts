@@ -16,6 +16,11 @@ app.use(session({
     saveUninitialized: false
 }));
 
+
+app.use("/",(req,res)=> {
+    res.send("Kamadenu Server is running on port 8000")
+})
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
