@@ -51,10 +51,8 @@ model Category {
   id               String    @id @default(uuid())
   name             String
   description      String?
-  parentCategoryId String?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
-  imageUrl         String?
   products         Product[]
 }
 
@@ -68,11 +66,13 @@ model Product {
   updatedAt              DateTime                 @updatedAt
   aboutProduct           Json?
   sellerId               String
+  price                  Decimal?
+  
   category               Category                 @relation(fields: [categoryId], references: [id])
   seller                 SellerProfile            @relation(fields: [sellerId], references: [id])
   discounts              ProductDiscount[]
   images                 ProductImage[]
-  variants               ProductVariant[]
+  // variants               ProductVariant[]
   reviews                Review[]
   productDetails         ProductDetails[]
   addCart                AddCart[]
@@ -118,34 +118,34 @@ model ProductImage {
   product       Product  @relation(fields: [productId], references: [id])
 }
 
-model ProductVariant {
-  id                String   @id @default(uuid())
-  productId         String
-  variantType       String
-  variantValue      String
-  discountPrice     Decimal  @default(0)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  description       String?
-  price             Decimal
-  productVariantSKU String   @unique
-  stockQuantity     Int
-  title             String
+// model ProductVariant {
+//   id                String   @id @default(uuid())
+//   productId         String
+//   variantType       String
+//   variantValue      String
+//   discountPrice     Decimal  @default(0)
+//   createdAt         DateTime @default(now())
+//   updatedAt         DateTime @updatedAt
+//   description       String?
+//   price             Decimal
+//   productVariantSKU String   @unique
+//   stockQuantity     Int
+//   title             String
 
-  product             Product               @relation(fields: [productId], references: [id], onDelete: Cascade)
-  ProductVariantImage ProductVariantImage[]
+//   product             Product               @relation(fields: [productId], references: [id], onDelete: Cascade)
+//   ProductVariantImage ProductVariantImage[]
 
-  @@index([productId])
-}
+//   @@index([productId])
+// }
 
-model ProductVariantImage {
-  id               String         @id @default(uuid())
-  productVariantId String
-  imageUrl         String
-  isPrimary        Boolean        @default(false)
-  createdAt        DateTime       @default(now())
-  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
-}
+// model ProductVariantImage {
+//   id               String         @id @default(uuid())
+//   productVariantId String
+//   imageUrl         String
+//   isPrimary        Boolean        @default(false)
+//   createdAt        DateTime       @default(now())
+//   productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+// }
 
 model Review {
   id         String   @id @default(uuid())

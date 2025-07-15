@@ -17,7 +17,6 @@ export const getDesignAndFeatureService = async (clientData: any): Promise<any> 
             category: true,
             images: true,
             discounts: true,
-            variants: true,
             reviews: true,
             seller: true,
             wishlist: true,

@@ -32,7 +32,6 @@ const particularProductService = (clientData) => __awaiter(void 0, void 0, void 
             },
             productDetails: true, // includes the ProductDetails records
             images: true,
-            variants: true,
             category: true,
             discounts: true,
             seller: true,

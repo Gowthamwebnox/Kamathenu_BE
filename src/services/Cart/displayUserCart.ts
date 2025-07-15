@@ -11,7 +11,6 @@ export const displayUserCart = async (userId: string) => {
             product:{
                 include:{
                     images:true,
-                    variants:true,
                     reviews:true
                 }
             }

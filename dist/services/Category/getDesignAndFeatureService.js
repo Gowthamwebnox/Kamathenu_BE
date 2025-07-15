@@ -26,7 +26,6 @@ const getDesignAndFeatureService = (clientData) => __awaiter(void 0, void 0, voi
             category: true,
             images: true,
             discounts: true,
-            variants: true,
             reviews: true,
             seller: true,
             wishlist: true,

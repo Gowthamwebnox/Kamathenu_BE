@@ -23,7 +23,6 @@ export const particularProductService = async (clientData:any):Promise<any>=>{
           },
           productDetails: true, // includes the ProductDetails records
           images:true,
-          variants:true,
           category:true,
           discounts:true,
           seller:true,

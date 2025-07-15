@@ -21,7 +21,6 @@ const displayUserCart = (userId) => __awaiter(void 0, void 0, void 0, function* 
             product: {
                 include: {
                     images: true,
-                    variants: true,
                     reviews: true
                 }
             }
