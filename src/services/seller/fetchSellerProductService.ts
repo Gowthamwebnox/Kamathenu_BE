@@ -11,5 +11,8 @@ export const fetchSellerProductService = async (sellerId: string):Promise<any> =
             discounts:true
         }
     });
+    console.log("💕💕💕💕💕")
+    console.log(sellerProduct)
+    console.log("💕💕💕💕💕")
     return sellerProduct;
 }

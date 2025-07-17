@@ -9,8 +9,13 @@ export const fetchOrderService=async(sellerId:string)=>{
         },
         include:{
             User:true,
-            product:true,
+            product:{
+                include:{
+                    images:true,
+                }
+            },
             order:true,
+            
             
         }
     })
