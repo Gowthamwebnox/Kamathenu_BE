@@ -3,7 +3,11 @@ import { PrismaClient } from "../../generated/prisma/client";
 const prisma = new PrismaClient();
 
 export const newProductService = async (productData:any):Promise<any> => {
+    // console.log("👌👌👌👌👍👍�👍�👌👌👌👌")
+    // console.log(productData);
     try {
+        console.log("👌👌👌👌👍👍👍👍👍👍👍👌👌👌👌")
+        console.log(productData)
         const product=await prisma.product.create({
             data:{
                 categoryId:productData.categoryId,
@@ -17,6 +21,8 @@ export const newProductService = async (productData:any):Promise<any> => {
                 price:productData.price,
             }
         })
+        console.log("👌👌👌👌👍👍👍👍👍👍👍👌👌👌👌")
+        console.log(product)
         const productImage=await prisma.productImage.create({
             data:{
                 productId:product.id,
@@ -30,8 +36,8 @@ export const newProductService = async (productData:any):Promise<any> => {
                 productId:product.id,
                 discountType:productData.productDiscountType,
                 discountValue:productData.productDiscountValue,
-                startDate:productData.productDiscountStartDate,
-                endDate:productData.productDiscountEndDate,
+                startDate:new Date(productData.productDiscountStartDate),
+                endDate:new Date(productData.productDiscountEndDate),
                 createdAt:new Date(),
                 updatedAt:new Date(),
             }
@@ -55,7 +61,7 @@ export const newProductService = async (productData:any):Promise<any> => {
         console.log("💕💕💕💕💕")
         return product;
     } catch (error) {
-        
+        console.log(error)
     }
 };
 

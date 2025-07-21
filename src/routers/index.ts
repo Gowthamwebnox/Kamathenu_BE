@@ -9,6 +9,7 @@ import contactRouter from './contact';
 import cartRouter from './cart';
 import orderRouter from './Order';
 import sellerRouter from './seller';
+import adminRouter from './admin';
 const middleware=express()
 middleware.use(cors())
 
@@ -19,6 +20,7 @@ middleware.use('/contact' , contactRouter)
 middleware.use('/cart' , cartRouter)
 middleware.use('/order' , orderRouter)
 middleware.use('/seller' , sellerRouter)
+middleware.use('/admin' , adminRouter)
 
 
 
