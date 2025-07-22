@@ -3,3 +3,4 @@ export * from "./newProduct.controller";
 export * from "./fetchSellerProduct.controller";
 export * from "./fetchOrder.controller";
 export * from "./fetchSellerProfile.controller";
+export * from "./updateOrder.controller";

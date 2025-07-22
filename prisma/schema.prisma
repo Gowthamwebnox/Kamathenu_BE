@@ -257,6 +257,7 @@ model OrderItem {
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   userId          String?
+  designDocument  String?
   status          OrderItemStatus @default(pending)
   order           Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product         Product         @relation(fields: [productId], references: [id])
