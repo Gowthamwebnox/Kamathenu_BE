@@ -37,6 +37,7 @@ model user {
   Order                  Order[]
   OrderItem              OrderItem[]
   UserProductDescription UserProductDescription[]
+  UserDesignDocument     UserDesignDocument[]
 }
 
 model OTPTable {
@@ -48,26 +49,27 @@ model OTPTable {
 }
 
 model Category {
-  id               String    @id @default(uuid())
-  name             String
-  description      String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  products         Product[]
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
 }
 
 model Product {
-  id                     String                   @id @default(uuid())
-  categoryId             String
-  name                   String
-  description            String?
-  isApproved             Boolean                  @default(false)
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime                 @updatedAt
-  aboutProduct           Json?
-  sellerId               String
-  price                  Decimal?
-  
+  id           String   @id @default(uuid())
+  categoryId   String
+  name         String
+  description  String?
+  isApproved   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  aboutProduct Json?
+  sellerId     String
+  price        Decimal?
+
   category               Category                 @relation(fields: [categoryId], references: [id])
   seller                 SellerProfile            @relation(fields: [sellerId], references: [id])
   discounts              ProductDiscount[]
@@ -93,7 +95,6 @@ model UserProductDescription {
   updatedAt   DateTime @updatedAt
   product     Product  @relation(fields: [productId], references: [id])
   user        user     @relation(fields: [userId], references: [id])
-
 }
 
 model ProductDiscount {
@@ -111,8 +112,8 @@ model ProductDiscount {
 model ProductImage {
   id            String   @id @default(uuid())
   productId     String
-  imageUrl      String[]
-  imageLayerout String[]
+  imageUrl      String
+  // imageLayerout String[]
   isPrimary     Boolean  @default(false)
   createdAt     DateTime @default(now())
   product       Product  @relation(fields: [productId], references: [id])
@@ -182,31 +183,30 @@ model AddCart {
 }
 
 model SellerProfile {
-  id               String      @id @default(uuid())
-  userId           String      @unique
+  id               String              @id @default(uuid())
+  userId           String              @unique
   profileImage     String?
   sellerName       String?
   storeName        String
   storeDescription String?
-  bankAccountId    String?     @unique
+  bankAccountId    String?             @unique
   upiId            String?
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
-  address          String?     @db.VarChar
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  address          String?             @db.VarChar
   // location         Unsupported("geography")?
   documents        String[]
-  gstn             String?     @unique
+  gstn             String?             @unique
   pincode          String?
   // status           SellerStatus              @default(ON_HOLD)
   bankAccount      BankAccountDetails?
   products         Product[]
-  user             user        @relation(fields: [userId], references: [id])
+  user             user                @relation(fields: [userId], references: [id])
   OrderItem        OrderItem[]
   // @@index([location], map: "sellerprofile_location_gix", type: Gist)
 }
 
-
-  model BankAccountDetails {
+model BankAccountDetails {
   id                String        @id @default(uuid())
   accountHolderName String
   accountNumber     String
@@ -224,6 +224,7 @@ model SellerProfile {
   @@index([accountNumber])
   @@index([ifscCode])
 }
+
 model Wishlist {
   id        String   @id @default(uuid())
   userId    String
@@ -249,26 +250,36 @@ model Order {
 }
 
 model OrderItem {
-  id              String          @id @default(uuid())
-  orderId         String
-  productId       String
-  sellerId        String
-  priceAtPurchase Decimal
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  userId          String?
-  designDocument  String?
-  status          OrderItemStatus @default(pending)
-  order           Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product         Product         @relation(fields: [productId], references: [id])
-  seller          SellerProfile   @relation(fields: [sellerId], references: [id])
-  User            user?           @relation(fields: [userId], references: [id])
-  
+  id                 String               @id @default(uuid())
+  orderId            String
+  productId          String
+  sellerId           String
+  priceAtPurchase    Decimal
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  userId             String?
+  designDocument     String?
+  status             OrderItemStatus      @default(pending)
+  order              Order                @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product            Product              @relation(fields: [productId], references: [id])
+  seller             SellerProfile        @relation(fields: [sellerId], references: [id])
+  User               user?                @relation(fields: [userId], references: [id])
+  UserDesignDocument UserDesignDocument[]
 
   @@index([orderId])
   @@index([productId])
   @@index([sellerId])
   @@index([userId])
+}
+
+model UserDesignDocument {
+  id          String    @id @default(uuid())
+  userId      String
+  orderItemId String
+  document    String
+  createdAt   DateTime  @default(now())
+  user        user      @relation(fields: [userId], references: [id])
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id])
 }
 
 model Payment {

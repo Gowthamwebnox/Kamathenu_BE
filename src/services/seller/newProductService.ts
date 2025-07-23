@@ -26,8 +26,8 @@ export const newProductService = async (productData:any):Promise<any> => {
         const productImage=await prisma.productImage.create({
             data:{
                 productId:product.id,
-                imageUrl:productData.imageUrl,
-                imageLayerout:productData.imageUrl,
+                imageUrl:productData.images,
+                // imageLayerout:productData.imageUrl,
                 createdAt:new Date(),
             }
         })

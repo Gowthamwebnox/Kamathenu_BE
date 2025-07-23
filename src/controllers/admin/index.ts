@@ -2,3 +2,8 @@ export * from './fetchAllProduct.controller';
 export * from './fetchSeller.controller';
 export * from './fetchUser.controller';
 export * from './fetchSellerProfile.controller';
+export * from './fetchOrders.controller';
+export * from './sendOrderDocument.controller';
+export * from './newCategory.controller';
+export * from './updateCategory.controller';
+export * from './deleteCategory.controller';
