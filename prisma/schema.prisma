@@ -198,7 +198,7 @@ model SellerProfile {
   documents        String[]
   gstn             String?             @unique
   pincode          String?
-  // status           SellerStatus              @default(ON_HOLD)
+  status           String              @default("pending")
   bankAccount      BankAccountDetails?
   products         Product[]
   user             user                @relation(fields: [userId], references: [id])

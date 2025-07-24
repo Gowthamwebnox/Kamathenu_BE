@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { fetchSellerService } from "../../services/admin/fetchSellerService";
+import { fetchSellerService } from "../../../services/admin/fetchSellerService";
 
 export const getSeller = async (req: Request, res: Response) => {
     const userId=req.params.userId;

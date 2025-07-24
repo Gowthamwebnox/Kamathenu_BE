@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { fetchCategory } from "../../controllers/seller";
-import { deleteCategory, fetchAllProduct, fetchOrders, fetchSellerProfile, fetchUser, getSeller, newCategory, sendOrderDocument, updateCategory } from "../../controllers/admin";
+import { approveSellerController, deleteCategory, fetchAllProduct, fetchOrders, fetchSellerProfile, fetchUser, getSeller, newCategory, sendOrderDocument, updateCategory } from "../../controllers/admin";
 
 const adminRouter = Router();
 
@@ -14,5 +14,6 @@ adminRouter.post('/sendOrderDocument', sendOrderDocument);
 adminRouter.post('/newCategory', newCategory);
 adminRouter.put('/updateCategory', updateCategory);
 adminRouter.delete('/deleteCategory/:categoryId', deleteCategory);
+adminRouter.put('/approveSeller', approveSellerController);
 
 export default adminRouter;

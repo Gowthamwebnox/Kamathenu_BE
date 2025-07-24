@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteCategoryService } from "../../services/admin/deleteCategoryService";
+import { deleteCategoryService } from "../../../services/admin/deleteCategoryService";
 
 export const deleteCategory=async(req:Request,res:Response)=>{
     try{

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { fetchSellerProfileService } from "../../services/admin/fetchSellerProfileService";
+import { fetchSellerProfileService } from "../../../services/admin/fetchSellerProfileService";
 
 
 export const fetchSellerProfile = async (req: Request, res: Response) => {

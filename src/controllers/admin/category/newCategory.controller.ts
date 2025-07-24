@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { newCategoryService } from "../../services/admin/newCategoryService";
+import { newCategoryService } from "../../../services/admin/newCategoryService";
 
 export const newCategory=async(req:Request,res:Response)=>{
     try{
