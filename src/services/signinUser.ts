@@ -11,6 +11,9 @@ export const signinUser = async (email: string, password: string) => {
     const findUser=await prisma.user.findUnique({
         where:{
             email:email
+        },
+        include:{
+            sellerProfile:true,
         }
     })
     if(!findUser){

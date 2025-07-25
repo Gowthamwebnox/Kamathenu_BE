@@ -8,3 +8,5 @@ export * from './category/newCategory.controller';
 export * from './category/updateCategory.controller';
 export * from './category/deleteCategory.controller';
 export * from './seller/approveSeller.controller';
+export * from './dashboard/fetchDashboard.controller';
+export * from './category/approveProduct.controller';

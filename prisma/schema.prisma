@@ -112,7 +112,7 @@ model ProductDiscount {
 model ProductImage {
   id            String   @id @default(uuid())
   productId     String
-  imageUrl      String
+  imageUrl      Json
   // imageLayerout String[]
   isPrimary     Boolean  @default(false)
   createdAt     DateTime @default(now())

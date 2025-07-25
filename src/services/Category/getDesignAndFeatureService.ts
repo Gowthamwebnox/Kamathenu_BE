@@ -11,6 +11,7 @@ export const getDesignAndFeatureService = async (clientData: any): Promise<any> 
             category: {
                 name: categoryName,
             },
+            isApproved:true,
         },
         take: limit,
         include: {
