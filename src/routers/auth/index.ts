@@ -7,6 +7,7 @@ import { newUser } from '../../controllers/Auth/signup.controller';
 import { Login } from '../../controllers/Auth/signin.controller';
 import { fetchUser } from '../../controllers/User/fetchUser.controller';
 import { updateUser } from '../../controllers/User/updateUser.controller';
+import { downloadOrder, fetchUserOrder } from '../../controllers/User';
 
 const router = express.Router();
 
@@ -53,6 +54,8 @@ router.post('/login', Login);
 
 router.get('/fetchUser/:id', fetchUser);
 router.put('/updateUser/:id', updateUser);
+router.get('/downloadOrder/:userId', downloadOrder);
+router.get('/fetchUserOrder/:userId', fetchUserOrder);
 
 
 // Google OAuth route

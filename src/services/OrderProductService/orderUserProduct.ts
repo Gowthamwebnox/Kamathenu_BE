@@ -18,6 +18,7 @@ export const orderUserProduct = async (userData:any) => {
             orderId:order.id,
             productId:item.productId,
             sellerId:item.sellerId,
+            userId:userData.userId,
             priceAtPurchase:item.amount,
             status:"pending"
         }
