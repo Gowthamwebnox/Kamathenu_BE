@@ -3,6 +3,8 @@ import { fetchUserService } from "../../services/User/fetchUserService";
 
 export const fetchUser = async (req: Request, res: Response):Promise<any> => {
     const userId = req.params;
+    console.log("🔥🔥💕💕🔥🔥")
+    console.log(userId.id)
     try {
         const user = await fetchUserService(userId.id);
         res.status(200).json(user);
