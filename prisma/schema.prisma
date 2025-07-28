@@ -195,7 +195,7 @@ model SellerProfile {
   updatedAt        DateTime            @updatedAt
   address          String?             @db.VarChar
   // location         Unsupported("geography")?
-  documents        String[]
+  // documents        String[]
   gstn             String?             @unique
   pincode          String?
   status           String              @default("pending")
