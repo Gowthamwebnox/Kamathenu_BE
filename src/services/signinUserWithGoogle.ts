@@ -8,6 +8,9 @@ export const signinUserWithGoogle = async (email: string) => {
         const user = await prisma.user.findUnique({
             where: {
                 email
+            },
+            include:{
+                sellerProfile:true,
             }
         })
         if(!user){

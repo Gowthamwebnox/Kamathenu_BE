@@ -12,6 +12,7 @@ export const fetchWishlistService = async (userId: string):Promise<any> => {
             product:{
                 include:{
                     images:true,
+                    discounts:true,
                     reviews:true,
                     seller:true,
                     category:true,

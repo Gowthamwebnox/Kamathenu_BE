@@ -6,3 +6,5 @@ export * from "./fetchSellerProfile.controller";
 export * from "./updateOrder.controller";
 export * from "./sellerDashboard.controller";
 export * from "./newSellerRegistration.controller";
+export * from "./updatesellerProfile.controller";
+export * from "./updateSellerBankDetails.controller";

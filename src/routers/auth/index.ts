@@ -64,19 +64,30 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '' }),
   (req, res) => {
-    debugger
     console.log(req.user)
     const userData:any = req.user
     console.log("😎😎😎🔥🔥🔥😎😎😎")
-    const userId=userData?.userData?.user?.id
+    const userId=userData?.userData?.user
     console.log(userId)
     
     const token=userData.accessToken
     const user=userData.user
+    console.log('❤️❤️❤️❤️❤️❤️❤️❤️❤️')
     console.log(userId,token,user)
+    const userDetails={
+      userId:userId.id,
+      userName:userId.name,
+      userEmail:userId.email,
+      userImage:userId.image,
+      userRole:userId.role,
+      userSellerProfile:userId?.sellerProfile?.id || '',
+      token:userData.accessToken,
+    }
+    const userDetailsEncode= encodeURIComponent(JSON.stringify(userDetails))
+    console.log(userDetailsEncode)
     if(!userData.isNewUser){
 
-        res.redirect(`http://localhost:3000/?token=${userData.accessToken}&userId=${userId}}`);
+        res.redirect(`http://localhost:3000/auth/signin?user=${userDetailsEncode}`);
         
         // res.json({token:userData.accessToken})
     }
