@@ -1,0 +1,21 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const seller_1 = require("../../controllers/seller");
+const admin_1 = require("../../controllers/admin");
+const adminRouter = (0, express_1.Router)();
+adminRouter.get('/fetchCategory', seller_1.fetchCategory);
+adminRouter.get('/fetchAllProduct', admin_1.fetchAllProduct);
+adminRouter.get('/getSeller/:userId', admin_1.getSeller);
+adminRouter.get('/fetchUser', admin_1.fetchUser);
+adminRouter.get('/fetchSellerProfile', admin_1.fetchSellerProfile);
+adminRouter.get('/fetchOrders', admin_1.fetchOrders);
+adminRouter.post('/sendOrderDocument', admin_1.sendOrderDocument);
+adminRouter.post('/newCategory', admin_1.newCategory);
+adminRouter.put('/updateCategory', admin_1.updateCategory);
+adminRouter.delete('/deleteCategory/:categoryId', admin_1.deleteCategory);
+adminRouter.put('/approveSeller', admin_1.approveSellerController);
+adminRouter.get('/fetchDashboard', admin_1.fetchDashboard);
+adminRouter.patch('/approveProduct/:id', admin_1.approveProduct);
+exports.default = adminRouter;
+//# sourceMappingURL=index.js.map

@@ -13,6 +13,8 @@ exports.fetchUser = void 0;
 const fetchUserService_1 = require("../../services/User/fetchUserService");
 const fetchUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.params;
+    console.log("🔥🔥💕💕🔥🔥");
+    console.log(userId.id);
     try {
         const user = yield (0, fetchUserService_1.fetchUserService)(userId.id);
         res.status(200).json(user);

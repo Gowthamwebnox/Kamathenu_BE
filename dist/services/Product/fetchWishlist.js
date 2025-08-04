@@ -21,6 +21,7 @@ const fetchWishlistService = (userId) => __awaiter(void 0, void 0, void 0, funct
             product: {
                 include: {
                     images: true,
+                    discounts: true,
                     reviews: true,
                     seller: true,
                     category: true,

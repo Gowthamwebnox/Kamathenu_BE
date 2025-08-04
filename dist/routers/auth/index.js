@@ -11,6 +11,7 @@ const signup_controller_1 = require("../../controllers/Auth/signup.controller");
 const signin_controller_1 = require("../../controllers/Auth/signin.controller");
 const fetchUser_controller_1 = require("../../controllers/User/fetchUser.controller");
 const updateUser_controller_1 = require("../../controllers/User/updateUser.controller");
+const User_1 = require("../../controllers/User");
 const router = express_1.default.Router();
 // Google OAuth
 (0, googlesignin_controller_1.googleSignin)();
@@ -45,21 +46,34 @@ router.post('/newuser', signup_controller_1.newUser);
 router.post('/login', signin_controller_1.Login);
 router.get('/fetchUser/:id', fetchUser_controller_1.fetchUser);
 router.put('/updateUser/:id', updateUser_controller_1.updateUser);
+router.get('/downloadOrder/:userId', User_1.downloadOrder);
+router.get('/fetchUserOrder/:userId', User_1.fetchUserOrder);
 // Google OAuth route
 router.get('/google', passport_1.default.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/callback', passport_1.default.authenticate('google', { failureRedirect: '' }), (req, res) => {
     var _a, _b;
-    debugger;
     console.log(req.user);
     const userData = req.user;
     console.log("😎😎😎🔥🔥🔥😎😎😎");
-    const userId = (_b = (_a = userData === null || userData === void 0 ? void 0 : userData.userData) === null || _a === void 0 ? void 0 : _a.user) === null || _b === void 0 ? void 0 : _b.id;
+    const userId = (_a = userData === null || userData === void 0 ? void 0 : userData.userData) === null || _a === void 0 ? void 0 : _a.user;
     console.log(userId);
     const token = userData.accessToken;
     const user = userData.user;
+    console.log('❤️❤️❤️❤️❤️❤️❤️❤️❤️');
     console.log(userId, token, user);
+    const userDetails = {
+        userId: userId.id,
+        userName: userId.name,
+        userEmail: userId.email,
+        userImage: userId.image,
+        userRole: userId.role,
+        userSellerProfile: ((_b = userId === null || userId === void 0 ? void 0 : userId.sellerProfile) === null || _b === void 0 ? void 0 : _b.id) || '',
+        token: userData.accessToken,
+    };
+    const userDetailsEncode = encodeURIComponent(JSON.stringify(userDetails));
+    console.log(userDetailsEncode);
     if (!userData.isNewUser) {
-        res.redirect(`http://localhost:3000/?token=${userData.accessToken}&userId=${userId}}`);
+        res.redirect(`http://localhost:3000/auth/signin?user=${userDetailsEncode}`);
         // res.json({token:userData.accessToken})
     }
     if (userData.isNewUser) {

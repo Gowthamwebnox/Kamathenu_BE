@@ -21,6 +21,9 @@ const signinUserWithGoogle = (email) => __awaiter(void 0, void 0, void 0, functi
         const user = yield prisma.user.findUnique({
             where: {
                 email
+            },
+            include: {
+                sellerProfile: true,
             }
         });
         if (!user) {

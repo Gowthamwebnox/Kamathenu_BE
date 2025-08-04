@@ -20,6 +20,7 @@ const getDesignAndFeatureService = (clientData) => __awaiter(void 0, void 0, voi
             category: {
                 name: categoryName,
             },
+            isApproved: true,
         },
         take: limit,
         include: {

@@ -25,6 +25,7 @@ const orderUserProduct = (userData) => __awaiter(void 0, void 0, void 0, functio
             orderId: order.id,
             productId: item.productId,
             sellerId: item.sellerId,
+            userId: userData.userId,
             priceAtPurchase: item.amount,
             status: "pending"
         };
