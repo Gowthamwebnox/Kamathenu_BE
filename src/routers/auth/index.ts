@@ -8,6 +8,7 @@ import { Login } from '../../controllers/Auth/signin.controller';
 import { fetchUser } from '../../controllers/User/fetchUser.controller';
 import { updateUser } from '../../controllers/User/updateUser.controller';
 import { downloadOrder, fetchUserOrder } from '../../controllers/User';
+import { forgetPassword, verifcationForgetUserOTP } from '../../controllers/Auth';
 
 const router = express.Router();
 
@@ -51,7 +52,8 @@ googleSignin()
 router.post('/verifyOTP', emailVerification);
 router.post('/newuser', newUser);
 router.post('/login', Login);
-
+router.post('/forgetPassword', forgetPassword);
+router.post('/verifcationForgetUserOTP', verifcationForgetUserOTP);
 router.get('/fetchUser/:id', fetchUser);
 router.put('/updateUser/:id', updateUser);
 router.get('/downloadOrder/:userId', downloadOrder);
